@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class main {
+public class Main {
 
     // Adicionei ArrayLists para armazenar os objetos
     static ArrayList<Aluno> alunos = new ArrayList<>();
@@ -12,7 +12,7 @@ public class main {
     static ArrayList<Disciplina> disciplinas = new ArrayList<>();
     static ArrayList<Curso> cursos = new ArrayList<>();
 
-    public static void Main(String args[]) {
+    public static void matriculaEditarain(String args[]) {
         Scanner scan = new Scanner(System.in);
 
         
