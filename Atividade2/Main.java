@@ -3,24 +3,21 @@ package Atividade2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Main {
 
-    // Adicionei ArrayLists para armazenar os objetos
+    // ArrayLists para armazenar os objetos
     static ArrayList<Aluno> alunos = new ArrayList<>();
     static ArrayList<Professor> professores = new ArrayList<>();
     static ArrayList<Disciplina> disciplinas = new ArrayList<>();
     static ArrayList<Curso> cursos = new ArrayList<>();
 
-    public static void matriculaEditarain(String args[]) {
+    public static void main(String args[]) {
         Scanner scan = new Scanner(System.in);
 
-        
-        int op;
+        mostrarmenu();
+        int op = scan.nextInt();
 
         do {
-            mostrarmenu();
-            op = scan.nextInt();
 
             switch (op) {
                 case 1:
