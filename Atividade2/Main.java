@@ -302,14 +302,30 @@ public class Main {
                 System.out.println("Digite o nome da disciplina");
                 String nome = scan.next();
                 System.out.println("Digite o curso da disciplina");
-                String curso = scan.next();
-                System.out.println("Digite o turno da disciplina");
-                String turno = scan.next();
-                System.out.println("Digite o periodo da disciplina");
-                String periodo = scan.next();
-                Disciplina disciplina = new Disciplina(nome, curso, turno, periodo);
-                disciplinas.add(disciplina); 
+                String nomeCurso = scan.next();
+
+                Curso cursoEncontrado = null;
+                for (Curso c : cursos) {
+                    if (c.getNome().equals(nomeCurso)) {
+                        cursoEncontrado = c;
+                        break;
+                    }
+                }
+                
+                if (cursoEncontrado != null) {
+                    System.out.println("Digite o turno da disciplina");
+                    String turno = scan.next();
+                    System.out.println("Digite o periodo da disciplina");
+                    String periodo = scan.next();
+                
+                    Disciplina d = new Disciplina(nome, cursoEncontrado, turno, periodo);
+                    disciplinas.add(d);
+                } else {
+                    System.out.println("Curso não encontrado.");
+                }
+
                 break;
+            
 
             case 2:
                 System.out.println("Digite o nome da disciplina");
@@ -329,11 +345,16 @@ public class Main {
                         System.out.println("Digite o novo nome da disciplina");
                         String novoNome = scan.next();
                         System.out.println("Digite o novo curso da disciplina");
-                        String novoCurso = scan.next();
+                        String novoCursoNome = scan.next();
                         System.out.println("Digite o novo turno da disciplina");
                         String novoTurno = scan.next();
                         System.out.println("Digite o novo periodo da disciplina");
                         String novoPeriodo = scan.next();
+                        
+                        // Criar uma instância de Curso com base na nova String
+                        Curso novoCurso = new Curso(novoCursoNome, novoTurno, novoPeriodo);
+                        
+                        // Modificar os atributos da disciplina
                         d.setNome(novoNome);
                         d.setCurso(novoCurso);
                         d.setTurno(novoTurno);

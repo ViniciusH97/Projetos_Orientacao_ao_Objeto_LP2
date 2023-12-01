@@ -2,11 +2,11 @@ package Atividade2;
 
 class Disciplina {
     private String nome;
-    private String curso;
+    private Curso curso;
     private String turno;
     private String periodo;
 
-    public Disciplina(String nome, String curso, String turno, String periodo) {
+    public Disciplina(String nome, Curso curso, String turno, String periodo) {
         this.nome = nome;
         this.curso = curso;
         this.turno = turno;
@@ -22,7 +22,7 @@ class Disciplina {
         return this.nome;
     }
 
-    public String getCurso() {
+    public Curso getCurso() {
         return this.curso;
     }
 
@@ -40,7 +40,7 @@ class Disciplina {
         this.nome = nome;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 
