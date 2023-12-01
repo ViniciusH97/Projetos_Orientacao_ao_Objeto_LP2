@@ -95,9 +95,12 @@ public class Main {
     
                     boolean alunoExistente = false;
                     for (Aluno a : alunos) {
-                        if (a.getMatricula().equals(matriculaEditar) && a.getCurso().equals(cursoEditar)
-                                && a.getTurma().equals(turmaEditar) && a.getTurno().equals(turnoEditar)
-                                && a.getPeriodo().equals(periodoEditar)) {
+                        if (a.getMatricula().equals(matriculaEditar) 
+                        && a.getCurso().getNome().equals(cursoEditar)
+                        && a.getTurma().equals(turmaEditar) 
+                        && a.getTurno().equals(turnoEditar)
+                        && a.getPeriodo().equals(periodoEditar)) {
+
                             alunoExistente = true;
                             System.out.println("Digite o novo nome do aluno");
                             String novoNome = scan.nextLine();
@@ -153,9 +156,12 @@ public class Main {
                     String periodoExcluir = scan.nextLine();
 
 
-                    alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir) && a.getCurso().equals(cursoExcluir)
-                            && a.getTurma().equals(turmaExcluir) && a.getTurno().equals(turnoExcluir)
-                            && a.getPeriodo().equals(periodoExcluir));
+                    alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir)
+                    && a.getCurso().getNome().equals(cursoExcluir) 
+                    && a.getTurma().equals(turmaExcluir)
+                    && a.getTurno().equals(turnoExcluir)
+                    && a.getPeriodo().equals(periodoExcluir));
+
                     break;
 
                     case 4:
@@ -339,7 +345,7 @@ public class Main {
 
                 boolean disciplinaExistente = false;
                 for (Disciplina d : disciplinas) {
-                    if (d.getNome().equals(nomeEditar) && d.getCurso().equals(cursoEditar)
+                    if (d.getNome().equals(nomeEditar) && d.getCurso().getNome().equals(cursoEditar)
                             && d.getTurno().equals(turnoEditar) && d.getPeriodo().equals(periodoEditar)) {
                         disciplinaExistente = true;
                         System.out.println("Digite o novo nome da disciplina");
@@ -350,7 +356,7 @@ public class Main {
                         String novoTurno = scan.next();
                         System.out.println("Digite o novo periodo da disciplina");
                         String novoPeriodo = scan.next();
-                        
+
                         // Criar uma instância de Curso com base na nova String
                         Curso novoCurso = new Curso(novoCursoNome, novoTurno, novoPeriodo);
                         
@@ -379,8 +385,10 @@ public class Main {
                 System.out.println("Digite o periodo da disciplina");
                 String periodoExcluir = scan.next();
 
-                disciplinas.removeIf(d -> d.getNome().equals(nomeExcluir) && d.getCurso().equals(cursoExcluir)
-                        && d.getTurno().equals(turnoExcluir) && d.getPeriodo().equals(periodoExcluir));
+                disciplinas.removeIf(d -> d.getNome().equals(nomeExcluir)
+                && d.getCurso().getNome().equals(cursoExcluir) 
+                && d.getTurno().equals(turnoExcluir)
+                && d.getPeriodo().equals(periodoExcluir));  
                 break;
             
             case 4: 
@@ -397,7 +405,6 @@ public class Main {
                 System.out.println("Opção inválida tente novamente");
                 break;
         }
-
         
     }
 
