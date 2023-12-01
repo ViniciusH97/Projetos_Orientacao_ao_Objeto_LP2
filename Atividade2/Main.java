@@ -1,6 +1,8 @@
 package Atividade2;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,32 +13,44 @@ public class Main {
 
     public static void main(String args[]) {
         Scanner scan = new Scanner(System.in);
-        int op;
+        int op = 0;
 
         do {
-            limpartela();
-            mostrarmenu();
-            op = scan.nextInt();
+            try {
+                limpartela();
+                mostrarmenu();
 
-            switch (op) {
-                case 1:
-                    GerenciarAlunos();
-                    break;
-                case 2:
-                    GerenciarProfessores();
-                    break;
-                case 3:
-                    GerenciarDisciplinas();
-                    break;
-                case 4:
-                    GerenciarCursos();
-                    break;
-                case 5:
-                    System.out.println("Saindo do programa");
-                    break;
-                default:
+                if (scan.hasNextInt()) {
+                    op = scan.nextInt();
+                    switch (op) {
+                        case 1:
+                            GerenciarAlunos();
+                            break;
+                        case 2:
+                            GerenciarProfessores();
+                            break;
+                        case 3:
+                            GerenciarDisciplinas();
+                            break;
+                        case 4:
+                            GerenciarCursos();
+                            break;
+                        case 5:
+                            System.out.println("Saindo do programa");
+                            break;
+                        default:
+                            System.out.println("Opção inválida, tente novamente");
+                            break;
+                    }
+                } else {
                     System.out.println("Opção inválida, tente novamente");
-                    break;
+                    scan.nextLine();
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Erro ao executar o programa. Tente novamente.");
+                scan.nextLine();
+                continue;
             }
 
         } while (op != 5);
@@ -61,21 +75,33 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    scan.nextLine();
+                    scan.nextLine(); // Limpar o buffer
                     System.out.println("Digite o nome do aluno");
                     String nome = scan.nextLine();
-                    System.out.println("Digite a matricula do aluno");
+                    System.out.println("Digite a matrícula do aluno");
                     String matricula = scan.nextLine();
-                    System.out.println("Digite o nome do curso do aluno");
+                    System.out.println("Digite o nome do curso do aluno (deixe em branco se não tiver)");
                     String cursoNome = scan.nextLine();
-                    Curso curso = new Curso(cursoNome, "", "");
+
+                    Curso curso = null;
+
+                    if (!cursoNome.isEmpty()) {
+                        System.out.println("Digite o turno do curso do aluno");
+                        String cursoTurno = scan.nextLine();
+                        System.out.println("Digite o período do curso do aluno");
+                        String cursoPeriodo = scan.nextLine();
+
+                        curso = new Curso(cursoNome, cursoTurno, cursoPeriodo);
+                    }
 
                     System.out.println("Digite a turma do aluno");
                     String turma = scan.nextLine();
                     System.out.println("Digite o turno do aluno");
                     String turno = scan.nextLine();
-                    System.out.println("Digite o periodo do aluno");
+                    System.out.println("Digite o período do aluno");
                     String periodo = scan.nextLine();
+
+                    // Preencher dados do aluno
                     Aluno aluno = new Aluno(nome, "", "", "", "", matricula, curso, turma, turno, periodo);
                     alunos.add(aluno);
                     break;
@@ -84,22 +110,24 @@ public class Main {
                     limpartela();
                     System.out.println("Digite a matricula do aluno");
                     String matriculaEditar = scan.nextLine();
-                    System.out.println("Digite o curso do aluno");
-                    String cursoEditar = scan.nextLine();
                     System.out.println("Digite a turma do aluno");
                     String turmaEditar = scan.nextLine();
+                    System.out.println("Digite o curso do aluno");
+                    String cursoEditar = scan.nextLine();
                     System.out.println("Digite o turno do aluno");
                     String turnoEditar = scan.nextLine();
                     System.out.println("Digite o periodo do aluno");
                     String periodoEditar = scan.nextLine();
-    
+
                     boolean alunoExistente = false;
                     for (Aluno a : alunos) {
-                        if (a.getMatricula().equals(matriculaEditar) 
-                        && a.getCurso().getNome().equals(cursoEditar)
-                        && a.getTurma().equals(turmaEditar) 
-                        && a.getTurno().equals(turnoEditar)
-                        && a.getPeriodo().equals(periodoEditar)) {
+                        if (a.getMatricula().equals(matriculaEditar) &&
+                                ((a.getCurso() != null && a.getCurso().getNome().equals(cursoEditar))
+                                        || a.getCurso() == null)
+                                &&
+                                a.getTurma().equals(turmaEditar) &&
+                                a.getTurno().equals(turnoEditar) &&
+                                a.getPeriodo().equals(periodoEditar)) {
 
                             alunoExistente = true;
                             System.out.println("Digite o novo nome do aluno");
@@ -113,7 +141,7 @@ public class Main {
                             System.out.println("Digite a nova matricula do aluno");
                             String novaMatricula = scan.nextLine();
                             System.out.println("Digite o novo curso do aluno");
-                            String novoCurso = scan.nextLine();
+                            String novoCursoNome = scan.nextLine();
                             System.out.println("Digite a nova turma do aluno");
                             String novaTurma = scan.nextLine();
                             System.out.println("Digite o novo turno do aluno");
@@ -121,11 +149,11 @@ public class Main {
                             System.out.println("Digite o novo periodo do aluno");
                             String novoPeriodo = scan.nextLine();
 
-                            curso = new Curso(novoCurso, "", "");
+                            Curso novoCurso = novoCursoNome.isEmpty() ? null : new Curso(novoCursoNome, "", "");
 
                             a.setNome(novoNome);
                             a.setEndereco(novoEndereco);
-                            a.setCurso(curso);
+                            a.setCurso(novoCurso);
                             a.setTelefone(novoTelefone);
                             a.setDataNascimento(novaDataNascimento);
                             a.setMatricula(novaMatricula);
@@ -135,53 +163,63 @@ public class Main {
                             break;
                         }
                     }
-    
+
                     if (!alunoExistente) {
                         System.out.println("Os valores informados não existem.");
                     }
-    
+
                     break;
+
                 case 3:
-                    limpartela();
-                    scan.nextLine();
-                    System.out.println("Digite a matricula do aluno");
-                    String matriculaExcluir = scan.nextLine();
-                    System.out.println("Digite o curso do aluno");
-                    String cursoExcluir = scan.nextLine();
-                    System.out.println("Digite a turma do aluno");
-                    String turmaExcluir = scan.nextLine();
-                    System.out.println("Digite o turno do aluno");
-                    String turnoExcluir = scan.nextLine();
-                    System.out.println("Digite o periodo do aluno");
-                    String periodoExcluir = scan.nextLine();
 
-
-                    alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir)
-                    && a.getCurso().getNome().equals(cursoExcluir) 
-                    && a.getTurma().equals(turmaExcluir)
-                    && a.getTurno().equals(turnoExcluir)
-                    && a.getPeriodo().equals(periodoExcluir));
-
-                    break;
-
-                    case 4:
+                    try {
                         limpartela();
-                        for (Aluno a : alunos) {
-                            System.out.println("Nome: " + a.getNome() + ", Matrícula: " + a.getMatricula() + ", Curso: "
-                                    + a.getCurso().getNome() + ", Turma: " + a.getTurma() + ", Turno: " + a.getTurno() + ", Período: "
-                                    + a.getPeriodo());
+                        scan.nextLine();
+                        System.out.println("Digite a matricula do aluno");
+                        String matriculaExcluir = scan.nextLine();
+                        System.out.println("Digite o curso do aluno");
+                        String cursoExcluir = scan.nextLine();
+                        System.out.println("Digite a turma do aluno");
+                        String turmaExcluir = scan.nextLine();
+                        System.out.println("Digite o turno do aluno");
+                        String turnoExcluir = scan.nextLine();
+                        System.out.println("Digite o periodo do aluno");
+                        String periodoExcluir = scan.nextLine();
+
+                        alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir)
+                                && a.getCurso().getNome().equals(cursoExcluir)
+                                && a.getTurma().equals(turmaExcluir)
+                                && a.getTurno().equals(turnoExcluir)
+                                && a.getPeriodo().equals(periodoExcluir));
+
+                        break;
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("Erro ao acessar a lista. Índice inválido.");
+                    } catch (ConcurrentModificationException e) {
+                        System.out.println("Erro ao modificar a lista durante a iteração.");
+                    }
+
+                case 4:
+                    limpartela();
+                    for (Aluno a : alunos) {
+                        System.out.print("Nome: " + a.getNome() + ", Matrícula: " + a.getMatricula());
+                    
+                        if (a.getCurso() != null) {
+                            System.out.print(", Curso: " + a.getCurso().getNome());
                         }
-
+                    
+                        System.out.println(", Turma: " + a.getTurma() + ", Turno: " + a.getTurno() + ", Período: " + a.getPeriodo());
+                    }
                     System.out.println("Pressione qualquer tecla para continuar...");
-                    scan.nextLine();
-
+                    scan.nextLine(); // Limpar o buffer
+                    scan.nextLine(); // Aguardar o usuário pressionar qualquer tecla
                     break;
 
                 case 5:
-                        break;
-                    default:
-                        System.out.println("Opção inválida, tente novamente");
-                        break;
+                    break;
+                default:
+                    System.out.println("Opção inválida, tente novamente");
+                    break;
             }
 
         } while (op != 5);
@@ -265,28 +303,29 @@ public class Main {
 
                 break;
 
-                case 3:
-                    System.out.println("Digite o curso do professor");
-                    String cursoExcluir = scan.next();
-                    System.out.println("Digite a disciplina do professor");
-                    String disciplinaExcluir = scan.next();
-                    System.out.println("Digite o turno do professor");
-                    String turnoExcluir = scan.next();
-                    System.out.println("Digite o periodo do professor");
-                    String periodoExcluir = scan.next();
+            case 3:
+                System.out.println("Digite o curso do professor");
+                String cursoExcluir = scan.next();
+                System.out.println("Digite a disciplina do professor");
+                String disciplinaExcluir = scan.next();
+                System.out.println("Digite o turno do professor");
+                String turnoExcluir = scan.next();
+                System.out.println("Digite o periodo do professor");
+                String periodoExcluir = scan.next();
 
-                    professores.removeIf(p -> p.getCurso().equals(cursoExcluir) && p.getDisciplina().equals(disciplinaExcluir)
-                            && p.getTurno().equals(turnoExcluir) && p.getPeriodo().equals(periodoExcluir));
-                    break;
+                professores
+                        .removeIf(p -> p.getCurso().equals(cursoExcluir) && p.getDisciplina().equals(disciplinaExcluir)
+                                && p.getTurno().equals(turnoExcluir) && p.getPeriodo().equals(periodoExcluir));
+                break;
 
-                case 4:
-                    for (Professor p : professores) {
-                        System.out.println("Nome: " + p.getNome() + ", Curso: " + p.getCurso() + ", Disciplina: "
-                                + p.getDisciplina() + ", Turno: " + p.getTurno() + ", Período: " + p.getPeriodo());
-                    }
-                    System.out.println("Pressione qualquer tecla para continuar...");
-                    scan.nextLine();
-                    break;
+            case 4:
+                for (Professor p : professores) {
+                    System.out.println("Nome: " + p.getNome() + ", Curso: " + p.getCurso() + ", Disciplina: "
+                            + p.getDisciplina() + ", Turno: " + p.getTurno() + ", Período: " + p.getPeriodo());
+                }
+                System.out.println("Pressione qualquer tecla para continuar...");
+                scan.nextLine();
+                break;
             default:
                 System.out.println("Opção inválida tente novamente");
                 break;
@@ -317,13 +356,13 @@ public class Main {
                         break;
                     }
                 }
-                
+
                 if (cursoEncontrado != null) {
                     System.out.println("Digite o turno da disciplina");
                     String turno = scan.next();
                     System.out.println("Digite o periodo da disciplina");
                     String periodo = scan.next();
-                
+
                     Disciplina d = new Disciplina(nome, cursoEncontrado, turno, periodo);
                     disciplinas.add(d);
                 } else {
@@ -331,7 +370,6 @@ public class Main {
                 }
 
                 break;
-            
 
             case 2:
                 System.out.println("Digite o nome da disciplina");
@@ -359,7 +397,7 @@ public class Main {
 
                         // Criar uma instância de Curso com base na nova String
                         Curso novoCurso = new Curso(novoCursoNome, novoTurno, novoPeriodo);
-                        
+
                         // Modificar os atributos da disciplina
                         d.setNome(novoNome);
                         d.setCurso(novoCurso);
@@ -386,26 +424,27 @@ public class Main {
                 String periodoExcluir = scan.next();
 
                 disciplinas.removeIf(d -> d.getNome().equals(nomeExcluir)
-                && d.getCurso().getNome().equals(cursoExcluir) 
-                && d.getTurno().equals(turnoExcluir)
-                && d.getPeriodo().equals(periodoExcluir));  
+                        && d.getCurso().getNome().equals(cursoExcluir)
+                        && d.getTurno().equals(turnoExcluir)
+                        && d.getPeriodo().equals(periodoExcluir));
                 break;
-            
-            case 4: 
+
+            case 4:
                 for (Disciplina d : disciplinas) {
-                    System.out.println("Nome: " + d.getNome() + ", Curso: " + d.getCurso() + ", Turno: " + d.getTurno() + ", Período: " + d.getPeriodo());
+                    System.out.println("Nome: " + d.getNome() + ", Curso: " + d.getCurso() + ", Turno: " + d.getTurno()
+                            + ", Período: " + d.getPeriodo());
                 }
                 System.out.println("Pressione qualquer tecla para continuar...");
                 scan.nextLine();
                 break;
-            
+
             case 5:
                 break;
             default:
                 System.out.println("Opção inválida tente novamente");
                 break;
         }
-        
+
     }
 
     public static void GerenciarCursos() {

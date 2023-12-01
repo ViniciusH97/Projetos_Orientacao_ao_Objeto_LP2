@@ -4,9 +4,9 @@ import java.util.Objects;
 
 // Classe Curso
 class Curso {
-    private String nome;
-    private String turno;
-    private String periodo;
+    public String nome;
+    public String turno;
+    public String periodo;
 
     public Curso(String nome, String turno, String periodo) {
         this.nome = nome;
