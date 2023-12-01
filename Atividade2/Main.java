@@ -61,12 +61,15 @@ public class Main {
 
             switch (op) {
                 case 1:
+                    scan.nextLine();
                     System.out.println("Digite o nome do aluno");
                     String nome = scan.nextLine();
                     System.out.println("Digite a matricula do aluno");
                     String matricula = scan.nextLine();
-                    System.out.println("Digite o curso do aluno");
-                    String curso = scan.nextLine();
+                    System.out.println("Digite o nome do curso do aluno");
+                    String cursoNome = scan.nextLine();
+                    Curso curso = new Curso(cursoNome, "", "");
+
                     System.out.println("Digite a turma do aluno");
                     String turma = scan.nextLine();
                     System.out.println("Digite o turno do aluno");
@@ -114,12 +117,15 @@ public class Main {
                             String novoTurno = scan.nextLine();
                             System.out.println("Digite o novo periodo do aluno");
                             String novoPeriodo = scan.nextLine();
+
+                            curso = new Curso(novoCurso, "", "");
+
                             a.setNome(novoNome);
                             a.setEndereco(novoEndereco);
+                            a.setCurso(curso);
                             a.setTelefone(novoTelefone);
                             a.setDataNascimento(novaDataNascimento);
                             a.setMatricula(novaMatricula);
-                            a.setCurso(novoCurso);
                             a.setTurma(novaTurma);
                             a.setTurno(novoTurno);
                             a.setPeriodo(novoPeriodo);
@@ -134,6 +140,7 @@ public class Main {
                     break;
                 case 3:
                     limpartela();
+                    scan.nextLine();
                     System.out.println("Digite a matricula do aluno");
                     String matriculaExcluir = scan.nextLine();
                     System.out.println("Digite o curso do aluno");
@@ -145,25 +152,26 @@ public class Main {
                     System.out.println("Digite o periodo do aluno");
                     String periodoExcluir = scan.nextLine();
 
-                // Adicionei código para remover o aluno do ArrayList
-                alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir) && a.getCurso().equals(cursoExcluir)
-                        && a.getTurma().equals(turmaExcluir) && a.getTurno().equals(turnoExcluir)
-                        && a.getPeriodo().equals(periodoExcluir));
-                break;
 
-                case 4:
-                    limpartela();
-                    for (Aluno a : alunos) {
-                        System.out.println("Nome: " + a.getNome() + ", Matrícula: " + a.getMatricula() + ", Curso: "
-                                + a.getCurso() + ", Turma: " + a.getTurma() + ", Turno: " + a.getTurno() + ", Período: "
-                                + a.getPeriodo());
-                    }
+                    alunos.removeIf(a -> a.getMatricula().equals(matriculaExcluir) && a.getCurso().equals(cursoExcluir)
+                            && a.getTurma().equals(turmaExcluir) && a.getTurno().equals(turnoExcluir)
+                            && a.getPeriodo().equals(periodoExcluir));
+                    break;
+
+                    case 4:
+                        limpartela();
+                        for (Aluno a : alunos) {
+                            System.out.println("Nome: " + a.getNome() + ", Matrícula: " + a.getMatricula() + ", Curso: "
+                                    + a.getCurso().getNome() + ", Turma: " + a.getTurma() + ", Turno: " + a.getTurno() + ", Período: "
+                                    + a.getPeriodo());
+                        }
 
                     System.out.println("Pressione qualquer tecla para continuar...");
-                    scan.next();
+                    scan.nextLine();
 
                     break;
-                    case 5:
+
+                case 5:
                         break;
                     default:
                         System.out.println("Opção inválida, tente novamente");
@@ -174,6 +182,7 @@ public class Main {
 
         // Voltar para o menu principal ao sair do submenu
         main(new String[0]);
+        scan.close();
 
     }
 
@@ -269,6 +278,8 @@ public class Main {
                         System.out.println("Nome: " + p.getNome() + ", Curso: " + p.getCurso() + ", Disciplina: "
                                 + p.getDisciplina() + ", Turno: " + p.getTurno() + ", Período: " + p.getPeriodo());
                     }
+                    System.out.println("Pressione qualquer tecla para continuar...");
+                    scan.nextLine();
                     break;
             default:
                 System.out.println("Opção inválida tente novamente");
@@ -297,7 +308,7 @@ public class Main {
                 System.out.println("Digite o periodo da disciplina");
                 String periodo = scan.next();
                 Disciplina disciplina = new Disciplina(nome, curso, turno, periodo);
-                disciplinas.add(disciplina); // Adicionei a disciplina ao ArrayList
+                disciplinas.add(disciplina); 
                 break;
 
             case 2:
@@ -355,6 +366,8 @@ public class Main {
                 for (Disciplina d : disciplinas) {
                     System.out.println("Nome: " + d.getNome() + ", Curso: " + d.getCurso() + ", Turno: " + d.getTurno() + ", Período: " + d.getPeriodo());
                 }
+                System.out.println("Pressione qualquer tecla para continuar...");
+                scan.nextLine();
                 break;
             
             case 5:
@@ -433,17 +446,17 @@ public class Main {
                     System.out.println("Digite o periodo do curso");
                     String periodoCursoExcluir = scan.next();
 
-                    // Adicionei código para remover o curso do ArrayList
                     cursos.removeIf(c -> c.getNome().equals(nomeCursoExcluir) && c.getTurno().equals(turnoCursoExcluir)
                             && c.getPeriodo().equals(periodoCursoExcluir));
                     break;
 
                 case 4:
-                    // Adicionei código para listar os cursos
                     for (Curso c : cursos) {
                         System.out.println(
                                 "Nome: " + c.getNome() + ", Turno: " + c.getTurno() + ", Período: " + c.getPeriodo());
                     }
+                    System.out.println("Pressione qualquer tecla para continuar...");
+                    scan.nextLine();
                     break;
 
                 case 5:

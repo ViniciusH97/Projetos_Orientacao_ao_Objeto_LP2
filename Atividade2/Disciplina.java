@@ -15,6 +15,9 @@ class Disciplina {
 
     //  Getters para retornar os valores dos atributos
 
+    public Disciplina(String nomeDisciplina, int cargaHoraria) {
+    }
+
     public String getNome() {
         return this.nome;
     }

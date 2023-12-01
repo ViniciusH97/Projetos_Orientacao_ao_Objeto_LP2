@@ -1,7 +1,10 @@
 package Atividade2;
+import java.util.ArrayList;
+import java.util.List;
 
 // Classe Professor que herda de Pessoa
 class Professor extends Pessoa {
+    private List<Disciplina> disciplinaMinistrada;
     private String curso;
     private String disciplina;
     private String turno;
@@ -50,5 +53,16 @@ class Professor extends Pessoa {
 
     public void setPeriodo(String periodo) {
         this.periodo = periodo;
+    }
+
+    public void adicionardisciplina(Disciplina disciplina) {
+        if (disciplinaMinistrada != null) {
+            disciplinaMinistrada = new ArrayList<Disciplina>();
+        }
+        disciplinaMinistrada.add(disciplina);
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinaMinistrada;
     }
 }

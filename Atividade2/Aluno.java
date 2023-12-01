@@ -2,16 +2,15 @@ package Atividade2;
 
 class Aluno extends Pessoa {
     private String matricula;
-    private String curso;
+    private Curso curso;
     private String turma;
     private String turno;
     private String periodo;
 
     public Aluno(String nome, String endereco, String telefone, String email, String dataNascimento, String matricula,
-            String curso, String turma, String turno, String periodo) {
+            Curso curso, String turma, String turno, String periodo) {
         super(nome, endereco, telefone, dataNascimento);
         this.matricula = matricula;
-        this.curso = curso;
         this.turma = turma;
         this.turno = turno;
         this.periodo = periodo;
@@ -23,7 +22,7 @@ class Aluno extends Pessoa {
         return this.matricula;
     }
 
-    public String getCurso() {
+    public Curso getCurso() {
         return this.curso;
     }
 
@@ -45,7 +44,7 @@ class Aluno extends Pessoa {
         this.matricula = matricula;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 
