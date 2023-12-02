@@ -243,26 +243,26 @@ public class Main {
         switch (op) {
             case 1:
                 System.out.println("Digite o curso do professor");
-                String curso = scan.next();
+                String curso = scan.nextLine();
                 System.out.println("Digite a disciplina do professor");
-                String disciplina = scan.next();
+                String disciplina = scan.nextLine();
                 System.out.println("Digite o turno do professor");
-                String turno = scan.next();
+                String turno = scan.nextLine();
                 System.out.println("Digite o periodo do professor");
-                String periodo = scan.next();
+                String periodo = scan.nextLine();
                 Professor professor = new Professor("", "", "", "", curso, disciplina, turno, periodo);
-                professores.add(professor); // Adicionei o professor ao ArrayList
+                professores.add(professor); 
                 break;
 
             case 2:
                 System.out.println("Digite o curso do professor");
-                String cursoEditar = scan.next();
+                String cursoEditar = scan.nextLine();
                 System.out.println("Digite a disciplina do professor");
-                String disciplinaEditar = scan.next();
+                String disciplinaEditar = scan.nextLine();
                 System.out.println("Digite o turno do professor");
-                String turnoEditar = scan.next();
+                String turnoEditar = scan.nextLine();
                 System.out.println("Digite o periodo do professor");
-                String periodoEditar = scan.next();
+                String periodoEditar = scan.nextLine();
 
                 boolean professorExistente = false;
                 for (Professor p : professores) {
@@ -270,21 +270,21 @@ public class Main {
                             && p.getTurno().equals(turnoEditar) && p.getPeriodo().equals(periodoEditar)) {
                         professorExistente = true;
                         System.out.println("Digite o novo nome do professor");
-                        String novoNome = scan.next();
+                        String novoNome = scan.nextLine();
                         System.out.println("Digite o novo endereço do professor");
-                        String novoEndereco = scan.next();
+                        String novoEndereco = scan.nextLine();
                         System.out.println("Digite o novo telefone do professor");
-                        String novoTelefone = scan.next();
+                        String novoTelefone = scan.nextLine();
                         System.out.println("Digite a nova data de nascimento do professor");
-                        String novaDataNascimento = scan.next();
+                        String novaDataNascimento = scan.nextLine();
                         System.out.println("Digite o novo curso do professor");
-                        String novoCurso = scan.next();
+                        String novoCurso = scan.nextLine();
                         System.out.println("Digite a nova disciplina do professor");
-                        String novaDisciplina = scan.next();
+                        String novaDisciplina = scan.nextLine();
                         System.out.println("Digite o novo turno do professor");
-                        String novoTurno = scan.next();
+                        String novoTurno = scan.nextLine();
                         System.out.println("Digite o novo periodo do professor");
-                        String novoPeriodo = scan.next();
+                        String novoPeriodo = scan.nextLine();
                         p.setNome(novoNome);
                         p.setEndereco(novoEndereco);
                         p.setTelefone(novoTelefone);
@@ -305,13 +305,13 @@ public class Main {
 
             case 3:
                 System.out.println("Digite o curso do professor");
-                String cursoExcluir = scan.next();
+                String cursoExcluir = scan.nextLine();
                 System.out.println("Digite a disciplina do professor");
-                String disciplinaExcluir = scan.next();
+                String disciplinaExcluir = scan.nextLine();
                 System.out.println("Digite o turno do professor");
-                String turnoExcluir = scan.next();
+                String turnoExcluir = scan.nextLine();
                 System.out.println("Digite o periodo do professor");
-                String periodoExcluir = scan.next();
+                String periodoExcluir = scan.nextLine();
 
                 professores
                         .removeIf(p -> p.getCurso().equals(cursoExcluir) && p.getDisciplina().equals(disciplinaExcluir)
@@ -345,9 +345,9 @@ public class Main {
         switch (op) {
             case 1:
                 System.out.println("Digite o nome da disciplina");
-                String nome = scan.next();
+                String nome = scan.nextLine();
                 System.out.println("Digite o curso da disciplina");
-                String nomeCurso = scan.next();
+                String nomeCurso = scan.nextLine();
 
                 Curso cursoEncontrado = null;
                 for (Curso c : cursos) {
@@ -359,9 +359,9 @@ public class Main {
 
                 if (cursoEncontrado != null) {
                     System.out.println("Digite o turno da disciplina");
-                    String turno = scan.next();
+                    String turno = scan.nextLine();
                     System.out.println("Digite o periodo da disciplina");
-                    String periodo = scan.next();
+                    String periodo = scan.nextLine();
 
                     Disciplina d = new Disciplina(nome, cursoEncontrado, turno, periodo);
                     disciplinas.add(d);
