@@ -75,36 +75,60 @@ public class Main {
 
             switch (op) {
                 case 1:
-                    scan.nextLine(); // Limpar o buffer
-                    System.out.println("Digite o nome do aluno");
-                    String nome = scan.nextLine();
-                    System.out.println("Digite a matrícula do aluno");
-                    String matricula = scan.nextLine();
+                scan.nextLine(); // Limpar o buffer
+                System.out.println("Digite o nome do aluno");
+                String nome = scan.nextLine();
+                System.out.println("Digite a matrícula do aluno");
+                String matricula = scan.nextLine();
+            
+                // Verificar se o aluno já foi cadastrado
+                boolean alunoJaCadastrado = false;
+                Aluno alunoExistente = null;
+            
+                for (Aluno aluno : alunos) {
+                    if (aluno.getMatricula().equals(matricula)) {
+                        alunoJaCadastrado = true;
+                        alunoExistente = aluno;
+                        break;
+                    }
+                }
+            
+                if (!alunoJaCadastrado) {
                     System.out.println("Digite o nome do curso do aluno (deixe em branco se não tiver)");
                     String cursoNome = scan.nextLine();
-
+            
                     Curso curso = null;
-
+            
                     if (!cursoNome.isEmpty()) {
                         System.out.println("Digite o turno do curso do aluno");
                         String cursoTurno = scan.nextLine();
                         System.out.println("Digite o período do curso do aluno");
                         String cursoPeriodo = scan.nextLine();
-
+            
                         curso = new Curso(cursoNome, cursoTurno, cursoPeriodo);
                     }
-
+            
                     System.out.println("Digite a turma do aluno");
                     String turma = scan.nextLine();
                     System.out.println("Digite o turno do aluno");
                     String turno = scan.nextLine();
                     System.out.println("Digite o período do aluno");
                     String periodo = scan.nextLine();
-
+            
                     // Preencher dados do aluno
                     Aluno aluno = new Aluno(nome, "", "", "", "", matricula, curso, turma, turno, periodo);
                     alunos.add(aluno);
-                    break;
+                    System.out.println("Aluno cadastrado com sucesso.");
+                } else {
+                    // Aluno já cadastrado, utilizar os dados existentes
+                    System.out.println("Aluno já cadastrado. Utilizando dados existentes.");
+                    System.out.println("Nome: " + alunoExistente.getNome());
+                    System.out.println("Matrícula: " + alunoExistente.getMatricula());
+                    System.out.println("Turno: " + alunoExistente.getTurno());
+                    System.out.println("Período: " + alunoExistente.getPeriodo());
+                }
+                break;
+                        
 
                 case 2:
                     limpartela();
@@ -119,7 +143,7 @@ public class Main {
                     System.out.println("Digite o periodo do aluno");
                     String periodoEditar = scan.nextLine();
 
-                    boolean alunoExistente = false;
+                    boolean aluno_existe = false;
                     for (Aluno a : alunos) {
                         if (a.getMatricula().equals(matriculaEditar) &&
                                 ((a.getCurso() != null && a.getCurso().getNome().equals(cursoEditar))
@@ -129,7 +153,7 @@ public class Main {
                                 a.getTurno().equals(turnoEditar) &&
                                 a.getPeriodo().equals(periodoEditar)) {
 
-                            alunoExistente = true;
+                            aluno_existe = true;
                             System.out.println("Digite o novo nome do aluno");
                             String novoNome = scan.nextLine();
                             System.out.println("Digite o novo endereço do aluno");
@@ -164,7 +188,7 @@ public class Main {
                         }
                     }
 
-                    if (!alunoExistente) {
+                    if (!aluno_existe) {
                         System.out.println("Os valores informados não existem.");
                     }
 
