@@ -103,7 +103,7 @@ public class Main {
                         System.out.println("Digite o nome do curso do aluno (deixe em branco se não tiver)");
                         String cursoNome = scan.nextLine();
 
-                        Curso curso = null;
+                        // Curso curso = null; Esta variavel não está sendo usada
 
                         if (!cursoNome.isEmpty()) {
                             // Procurar o curso na lista de cursos
@@ -397,6 +397,7 @@ public class Main {
                 System.out.println("Opção inválida tente novamente");
                 break;
         }
+        scan.close();
     }
 
     public static void GerenciarDisciplinas() {
@@ -527,7 +528,7 @@ public class Main {
                 System.out.println("Opção inválida tente novamente");
                 break;
         }
-
+        scan.close();
     }
 
     public static void GerenciarCursos() {
@@ -618,6 +619,8 @@ public class Main {
         } while (op != 5);
 
         main(new String[0]);
+
+        scan.close();
     }
 
     public static void mostrarmenu() {
